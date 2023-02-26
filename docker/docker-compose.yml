@@ -5,7 +5,7 @@ services:
     command: ['-d']
     networks:
       syd:
-        ipv4_address: 172.16.0.1
+        ipv4_address: 172.16.0.10
 networks:
   syd:
     ipam:
