@@ -13,19 +13,19 @@ services:
       cdg:
         ipv4_address: 192.168.103.10
   whoami-sin:
-    image: containous/whoami:v1.5.0
+    image: containous/whoami:latest
     networks:
       sin:
         ipv4_address: 192.168.101.20
   whoami-iad:
-    image: containous/whoami:v1.5.0
+    image: containous/whoami:latest
     networks:
-      sin:
+      iad:
         ipv4_address: 192.168.102.20
   whoami-cdg:
-    image: containous/whoami:v1.5.0
+    image: containous/whoami:latest
     networks:
-      sin:
+      cdg:
         ipv4_address: 192.168.103.20
 networks:
   global:
