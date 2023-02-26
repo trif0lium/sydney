@@ -4,11 +4,32 @@ services:
     image: ricardbejarano/dnsmasq:2.89
     command: ['-d']
     networks:
-      syd:
+      global:
         ipv4_address: 172.16.0.10
+      sin:
+        ipv4_address: 172.17.0.10
+      iad:
+        ipv4_address: 172.18.0.10
+      cdg:
+        ipv4_address: 172.19.0.10
 networks:
-  syd:
+  global:
     ipam:
       driver: default
       config:
         - subnet: '172.16.0.0/24'
+  sin:
+    ipam:
+      driver: default
+      config:
+        - subnet: '172.17.0.0/24'
+  iad:
+    ipam:
+      driver: default
+      config:
+        - subnet: '172.18.0.0/24'
+  cdg:
+    ipam:
+      driver: default
+      config:
+        - subnet: '172.19.0.0/24'
