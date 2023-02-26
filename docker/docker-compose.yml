@@ -1,0 +1,14 @@
+version: '3.9'
+services:
+  dnsmasq:
+    image: jpillora/dnsmasq:latest
+    command: ['-d']
+    networks:
+      syd:
+        ipv4_address: 172.16.0.1
+networks:
+  syd:
+    ipam:
+      driver: default
+      config:
+        - subnet: '172.16.0.0/24'
