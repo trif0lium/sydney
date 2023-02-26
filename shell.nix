@@ -11,6 +11,7 @@ pkgs.mkShell {
     rust-analyzer
     clippy
     darwin.apple_sdk.frameworks.Security
+    gnumake
   ];
 
   RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
