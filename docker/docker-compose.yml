@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   dnsmasq:
-    image: jpillora/dnsmasq:latest
+    image: ricardbejarano/dnsmasq:2.89
     command: ['-d']
     networks:
       syd:
