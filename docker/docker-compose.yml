@@ -13,17 +13,17 @@ services:
       cdg:
         ipv4_address: 192.168.103.10
   whoami-sin:
-    image: containous/whoami:latest
+    image: traefik/whoami:latest
     networks:
       sin:
         ipv4_address: 192.168.101.20
   whoami-iad:
-    image: containous/whoami:latest
+    image: traefik/whoami:latest
     networks:
       iad:
         ipv4_address: 192.168.102.20
   whoami-cdg:
-    image: containous/whoami:latest
+    image: traefik/whoami:latest
     networks:
       cdg:
         ipv4_address: 192.168.103.20
