@@ -1,4 +1,4 @@
-.POSIX
+.POSIX:
 .PHONY: *
 
 wireguard:
