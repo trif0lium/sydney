@@ -5,6 +5,6 @@ in
 pkgs.mkShell {
   buildInputs = with pkgs; [
     gnumake
-    nebula
+    wireguard-tools
   ];
 }
