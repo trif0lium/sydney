@@ -1,0 +1,4 @@
+127.0.0.1 localhost
+127.127.0.1 testserver.sin.internal
+127.127.0.2 testserver.iad.internal
+127.127.0.3 testserver.cdg.internal
