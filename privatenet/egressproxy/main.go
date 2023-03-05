@@ -7,7 +7,6 @@ import (
 	"io"
 	"log"
 	"net/netip"
-	"strings"
 
 	"net/http"
 	"os"
@@ -16,7 +15,6 @@ import (
 	"golang.zx2c4.com/wireguard/conn"
 	"golang.zx2c4.com/wireguard/device"
 	"golang.zx2c4.com/wireguard/tun/netstack"
-	"gvisor.dev/gvisor/pkg/tcpip/transport"
 )
 
 func main() {
