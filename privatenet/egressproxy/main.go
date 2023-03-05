@@ -4,14 +4,19 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
+	"io"
 	"log"
 	"net/netip"
+	"strings"
+
+	"net/http"
 	"os"
 	"path/filepath"
 
 	"golang.zx2c4.com/wireguard/conn"
 	"golang.zx2c4.com/wireguard/device"
 	"golang.zx2c4.com/wireguard/tun/netstack"
+	"gvisor.dev/gvisor/pkg/tcpip/transport"
 )
 
 func main() {
@@ -53,4 +58,22 @@ func main() {
 	}
 
 	dev.Up()
+
+	client := http.Client{
+		Transport: &http.Transport{
+			DialContext: tnet.DialContext,
+		},
+	}
+
+	resp, err := client.Get("http://192.168.4.29/api")
+	if err != nil {
+		log.Panic(err)
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	log.Println(string(body))
 }
