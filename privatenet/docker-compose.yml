@@ -1,0 +1,50 @@
+version: '3.9'
+services:
+  dnsmasq:
+    image: ricardbejarano/dnsmasq:2.89
+    command: ['-d']
+    networks:
+      global:
+        ipv4_address: 192.168.100.10
+      sin:
+        ipv4_address: 192.168.101.10
+      iad:
+        ipv4_address: 192.168.102.10
+      cdg:
+        ipv4_address: 192.168.103.10
+  whoami-sin:
+    image: traefik/whoami:latest
+    networks:
+      sin:
+        ipv4_address: 192.168.101.20
+  whoami-iad:
+    image: traefik/whoami:latest
+    networks:
+      iad:
+        ipv4_address: 192.168.102.20
+  whoami-cdg:
+    image: traefik/whoami:latest
+    networks:
+      cdg:
+        ipv4_address: 192.168.103.20
+networks:
+  global:
+    ipam:
+      driver: default
+      config:
+        - subnet: '192.168.100.0/24'
+  sin:
+    ipam:
+      driver: default
+      config:
+        - subnet: '192.168.101.0/24'
+  iad:
+    ipam:
+      driver: default
+      config:
+        - subnet: '192.168.102.0/24'
+  cdg:
+    ipam:
+      driver: default
+      config:
+        - subnet: '192.168.103.0/24'
