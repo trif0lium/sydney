@@ -12,6 +12,7 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 COPY --from=build-env /sydney/privatenet/.wg /sydney/privatenet/.wg
 COPY --from=build-env /sydney/privatenet/bin/ /sydney/privatenet/
-COPY --from=build-env /sydney/privatenet/init.sh /sydney/privatenet/init.sh
+COPY --from=build-env /sydney/privatenet/init-sin.sh /sydney/privatenet/init-sin.sh
+COPY --from=build-env /sydney/privatenet/init-iad.sh /sydney/privatenet/init-iad.sh
 ENTRYPOINT /bin/sh
 CMD init.sh
