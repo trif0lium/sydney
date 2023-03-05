@@ -2,6 +2,7 @@ version: '3.9'
 services:
   testserver-sin:
     build: .
+    command: "init-sin.sh"
     ports:
       - 58120:58120
     networks:
@@ -9,6 +10,7 @@ services:
         ipv4_address: 192.168.101.20
   testserver-iad:
     build: .
+    command: "init-iad.sh"
     networks:
       iad:
         ipv4_address: 192.168.102.20
