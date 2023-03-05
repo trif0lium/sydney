@@ -52,20 +52,20 @@ func main() {
 		log.Panic(err)
 	}
 
-	localPublicKeyBase64, err := os.ReadFile(filepath.Join(cwd, ".wg/sin.pub"))
+	remotePublicKeyBase64, err := os.ReadFile(filepath.Join(cwd, ".wg/iad.pub"))
 	if err != nil {
 		log.Panic(err)
 	}
 
-	localPublicKey, err := base64.StdEncoding.DecodeString(string(localPublicKeyBase64))
+	remotePublicKey, err := base64.StdEncoding.DecodeString(string(remotePublicKeyBase64))
 	if err != nil {
 		log.Panic(err)
 	}
 
 	wgConf := bytes.NewBuffer(nil)
 	fmt.Fprintf(wgConf, "private_key=%s\n", hex.EncodeToString(localPrivateKey))
-	fmt.Fprintf(wgConf, "public_key=%s\n", hex.EncodeToString(localPublicKey))
 	fmt.Fprintf(wgConf, "listen_port=58120\n")
+	fmt.Fprintf(wgConf, "public_key=%s\n", hex.EncodeToString(remotePublicKey))
 	fmt.Fprintf(wgConf, "allowed_ip=%s\n", "192.168.4.28/32")
 	fmt.Fprintf(wgConf, "persistent_keepalive_interval=25\n")
 
