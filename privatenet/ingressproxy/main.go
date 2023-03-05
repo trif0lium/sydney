@@ -9,6 +9,7 @@ import (
 	"io"
 	"log"
 	"net"
+	"net/http"
 	"net/netip"
 	"os"
 	"path/filepath"
@@ -82,32 +83,12 @@ func main() {
 		log.Panic(err)
 	}
 
-	source, err := listener.Accept()
+	http.HandleFunc("/api", func(w http.ResponseWriter, r *http.Request) {
+		io.WriteString(w, "OK")
+	})
+
+	err = http.Serve(listener, nil)
 	if err != nil {
 		log.Panic(err)
 	}
-	defer source.Close()
-
-	go func() {
-		target, err := net.Dial("tcp", ":80")
-		if err != nil {
-			log.Print(err)
-			return
-		}
-		defer target.Close()
-
-		wg := &sync.WaitGroup{}
-
-		wg.Add(2)
-
-		copyFunc := func(dst net.Conn, src net.Conn) {
-			defer wg.Done()
-			io.Copy(dst, src)
-		}
-
-		go copyFunc(target, source)
-		go copyFunc(source, target)
-
-		wg.Wait()
-	}()
 }
