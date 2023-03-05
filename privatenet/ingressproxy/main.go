@@ -81,13 +81,37 @@ func main() {
 	if err != nil {
 		log.Panic(err)
 	}
+	defer listener.Close()
 
-	http.HandleFunc("/api", func(w http.ResponseWriter, r *http.Request) {
-		io.WriteString(w, "OK")
-	})
+	for {
+		local, err := listener.Accept()
+		if err != nil {
+			log.Panic(err)
+		}
 
-	err = http.Serve(listener, nil)
-	if err != nil {
-		log.Panic(err)
+		remote, err := net.Dial("tcp", "127.0.0.1:80")
+		if err != nil {
+			log.Panic(err)
+		}
+
+		runTunnel(local, remote)
 	}
+}
+
+func runTunnel(local, remote net.Conn) {
+	defer local.Close()
+	defer remote.Close()
+	done := make(chan struct{}, 2)
+
+	go func() {
+		io.Copy(local, remote)
+		done <- struct{}{}
+	}()
+
+	go func() {
+		io.Copy(remote, local)
+		done <- struct{}{}
+	}()
+
+	<-done
 }
