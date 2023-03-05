@@ -13,5 +13,5 @@ RUN apt-get update \
 COPY --from=build-env /sydney/privatenet/.wg /sydney/privatenet/.wg
 COPY --from=build-env /sydney/privatenet/bin/ /sydney/privatenet/
 COPY --from=build-env /sydney/privatenet/init.sh /sydney/privatenet/init.sh
-ENTRYPOINT [ "/bin/sh" ]
+ENTRYPOINT /bin/sh
 CMD init.sh
