@@ -9,7 +9,6 @@ import (
 	"io"
 	"log"
 	"net"
-	"net/http"
 	"net/netip"
 	"os"
 	"path/filepath"
