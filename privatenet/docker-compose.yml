@@ -12,18 +12,18 @@ services:
         ipv4_address: 192.168.102.10
       cdg:
         ipv4_address: 192.168.103.10
-  whoami-sin:
-    image: traefik/whoami:latest
+  testserver-sin:
+    image: traefik/testserver:latest
     networks:
       sin:
         ipv4_address: 192.168.101.20
-  whoami-iad:
-    image: traefik/whoami:latest
+  testserver-iad:
+    image: traefik/testserver:latest
     networks:
       iad:
         ipv4_address: 192.168.102.20
-  whoami-cdg:
-    image: traefik/whoami:latest
+  testserver-cdg:
+    image: traefik/testserver:latest
     networks:
       cdg:
         ipv4_address: 192.168.103.20
