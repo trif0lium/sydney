@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"net"
 	"net/netip"
 
 	"net/http"
@@ -20,6 +21,13 @@ import (
 )
 
 func main() {
+	hostIPs, err := net.LookupIP("host.internal.docker")
+	if err != nil {
+		log.Panic(err)
+	}
+
+	hostIP := hostIPs[0].String()
+
 	tun, tnet, err := netstack.CreateNetTUN(
 		[]netip.Addr{netip.MustParseAddr("192.168.4.28")},
 		[]netip.Addr{},
