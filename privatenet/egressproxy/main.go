@@ -67,7 +67,7 @@ func main() {
 	wgConf := bytes.NewBuffer(nil)
 	fmt.Fprintf(wgConf, "private_key=%s\n", hex.EncodeToString(localPrivateKey))
 	fmt.Fprintf(wgConf, "public_key=%s\n", hex.EncodeToString(remotePublicKey))
-	fmt.Fprintf(wgConf, "endpoint=%s\n", "host.docker.internal:58120")
+	fmt.Fprintf(wgConf, "endpoint=%s\n", hostIP+":58120")
 	fmt.Fprintf(wgConf, "allowed_ip=%s\n", "192.168.4.28/32")
 	fmt.Fprintf(wgConf, "persistent_keepalive_interval=25\n")
 
