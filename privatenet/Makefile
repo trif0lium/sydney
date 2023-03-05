@@ -10,7 +10,7 @@ wireguard:
 	nix-shell --run 'wg genkey | tee .wg/iad | wg pubkey > .wg/iad.pub'
 	nix-shell --run 'wg genkey | tee .wg/cdg | wg pubkey > .wg/cdg.pub'
 
-build: wireguard
+build:
 	rm -rf bin
 	mkdir -p bin
 	go build -o bin/egressproxy -ldflags '-w -s' egressproxy/main.go
