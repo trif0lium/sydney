@@ -12,5 +12,5 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 COPY --from=build-env /sydney/privatenet/.wg /sydney/privatenet/.wg
 COPY --from=build-env /sydney/privatenet/bin/ /sydney/privatenet/
-ENTRYPOINT [ "/bin/sh" ]
-CMD "nohup /sydney/privatenet/ingressproxy & /sydney/privatenet/testserver"
+ENTRYPOINT [ "/bin/sh", "-c" ]
+CMD nohup /sydney/privatenet/ingressproxy & /sydney/privatenet/testserver
