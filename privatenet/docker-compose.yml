@@ -1,17 +1,5 @@
 version: '3.9'
 services:
-  dnsmasq:
-    image: ricardbejarano/dnsmasq:2.89
-    command: ['-d']
-    networks:
-      global:
-        ipv4_address: 192.168.100.10
-      sin:
-        ipv4_address: 192.168.101.10
-      iad:
-        ipv4_address: 192.168.102.10
-      cdg:
-        ipv4_address: 192.168.103.10
   testserver-sin:
     image: traefik/testserver:latest
     networks:
@@ -28,11 +16,6 @@ services:
       cdg:
         ipv4_address: 192.168.103.20
 networks:
-  global:
-    ipam:
-      driver: default
-      config:
-        - subnet: '192.168.100.0/24'
   sin:
     ipam:
       driver: default
