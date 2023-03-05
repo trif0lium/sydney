@@ -4,13 +4,15 @@ services:
     build: .
     command: "init-sin.sh"
     ports:
-      - 58120:58120
+      - 58120:58120/udp
     networks:
       sin:
         ipv4_address: 192.168.101.20
   testserver-iad:
     build: .
     command: "init-iad.sh"
+    ports:
+      - 58121:58120/udp
     networks:
       iad:
         ipv4_address: 192.168.102.20
