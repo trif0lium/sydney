@@ -68,7 +68,7 @@ func main() {
 	fmt.Fprintf(wgConf, "private_key=%s\n", hex.EncodeToString(localPrivateKey))
 	fmt.Fprintf(wgConf, "public_key=%s\n", hex.EncodeToString(remotePublicKey))
 	fmt.Fprintf(wgConf, "endpoint=%s\n", hostIP+":58120")
-	fmt.Fprintf(wgConf, "allowed_ip=%s\n", "192.168.4.28/32")
+	fmt.Fprintf(wgConf, "allowed_ip=%s\n", "0.0.0.0/0")
 	fmt.Fprintf(wgConf, "persistent_keepalive_interval=25\n")
 
 	if err := dev.IpcSetOperation(bufio.NewReader(wgConf)); err != nil {
