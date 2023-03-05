@@ -65,8 +65,10 @@ func main() {
 	wgConf := bytes.NewBuffer(nil)
 	fmt.Fprintf(wgConf, "private_key=%s\n", hex.EncodeToString(localPrivateKey))
 	fmt.Fprintf(wgConf, "listen_port=58120\n")
+
 	fmt.Fprintf(wgConf, "public_key=%s\n", hex.EncodeToString(remotePublicKey))
 	fmt.Fprintf(wgConf, "allowed_ip=%s\n", "192.168.4.28/32")
+	fmt.Fprintf(wgConf, "endpoint=%s\n", hostIP+":58121")
 	fmt.Fprintf(wgConf, "persistent_keepalive_interval=25\n")
 
 	if err := dev.IpcSetOperation(bufio.NewReader(wgConf)); err != nil {
