@@ -2,6 +2,8 @@ version: '3.9'
 services:
   testserver-sin:
     build: .
+    ports:
+      - 58120:58120
     networks:
       sin:
         ipv4_address: 192.168.101.20
