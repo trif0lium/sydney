@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"bytes"
+	"encoding/base64"
 	"encoding/hex"
 	"fmt"
 	"io"
@@ -35,12 +36,22 @@ func main() {
 		log.Panic(err)
 	}
 
-	localPrivateKey, err := os.ReadFile(filepath.Join(cwd, ".wg/sin"))
+	localPrivateKeyBase64, err := os.ReadFile(filepath.Join(cwd, ".wg/sin"))
 	if err != nil {
 		log.Panic(err)
 	}
 
-	localPublicKey, err := os.ReadFile(filepath.Join(cwd, ".wg/sin.pub"))
+	localPrivateKey, err := base64.StdEncoding.DecodeString(string(localPrivateKeyBase64))
+	if err != nil {
+		log.Panic(err)
+	}
+
+	localPublicKeyBase64, err := os.ReadFile(filepath.Join(cwd, ".wg/sin.pub"))
+	if err != nil {
+		log.Panic(err)
+	}
+
+	localPublicKey, err := base64.StdEncoding.DecodeString(string(localPublicKeyBase64))
 	if err != nil {
 		log.Panic(err)
 	}
