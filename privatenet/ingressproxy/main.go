@@ -13,7 +13,6 @@ import (
 	"net/netip"
 	"os"
 	"path/filepath"
-	"sync"
 
 	"golang.zx2c4.com/wireguard/conn"
 	"golang.zx2c4.com/wireguard/device"
