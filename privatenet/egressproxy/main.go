@@ -21,7 +21,7 @@ import (
 )
 
 func main() {
-	hostIPs, err := net.LookupIP("host.internal.docker")
+	hostIPs, err := net.LookupIP("host.docker.internal")
 	if err != nil {
 		log.Panic(err)
 	}
