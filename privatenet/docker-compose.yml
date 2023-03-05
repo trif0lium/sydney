@@ -1,17 +1,17 @@
 version: '3.9'
 services:
   testserver-sin:
-    image: traefik/testserver:latest
+    build: .
     networks:
       sin:
         ipv4_address: 192.168.101.20
   testserver-iad:
-    image: traefik/testserver:latest
+    build: .
     networks:
       iad:
         ipv4_address: 192.168.102.20
   testserver-cdg:
-    image: traefik/testserver:latest
+    build: .
     networks:
       cdg:
         ipv4_address: 192.168.103.20
