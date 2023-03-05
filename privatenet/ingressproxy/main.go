@@ -1,8 +1,13 @@
 package main
 
 import (
+	"bufio"
+	"bytes"
+	"fmt"
 	"log"
 	"net/netip"
+	"os"
+	"path/filepath"
 
 	"golang.zx2c4.com/wireguard/conn"
 	"golang.zx2c4.com/wireguard/device"
@@ -20,5 +25,32 @@ func main() {
 	}
 
 	dev := device.NewDevice(tun, conn.NewDefaultBind(), device.NewLogger(device.LogLevelVerbose, ""))
+
+	cwd, err := os.Getwd()
+	if err != nil {
+		log.Panic(err)
+	}
+
+	localPrivateKey, err := os.ReadFile(filepath.Join(cwd, ".wg/sin"))
+	if err != nil {
+		log.Panic(err)
+	}
+
+	localPublicKey, err := os.ReadFile(filepath.Join(cwd, ".wg/sin.pub"))
+	if err != nil {
+		log.Panic(err)
+	}
+
+	wgConf := bytes.NewBuffer(nil)
+	fmt.Fprintf(wgConf, "private_key=%s\n", string(localPrivateKey))
+	fmt.Fprintf(wgConf, "public_key=%s\n", string(localPublicKey))
+	fmt.Fprintf(wgConf, "listen_port=58120\n")
+	fmt.Fprintf(wgConf, "allowed_ip=%s\n", "192.168.4.28/32")
+	fmt.Fprintf(wgConf, "persistent_keepalive_interval=25\n")
+
+	if err := dev.IpcSetOperation(bufio.NewReader(wgConf)); err != nil {
+		log.Panic(err)
+	}
+
 	dev.Up()
 }
