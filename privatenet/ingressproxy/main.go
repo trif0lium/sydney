@@ -4,10 +4,13 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
+	"io"
 	"log"
+	"net"
 	"net/netip"
 	"os"
 	"path/filepath"
+	"sync"
 
 	"golang.zx2c4.com/wireguard/conn"
 	"golang.zx2c4.com/wireguard/device"
@@ -53,4 +56,38 @@ func main() {
 	}
 
 	dev.Up()
+
+	listener, err := tnet.ListenTCP(&net.TCPAddr{Port: 80})
+	if err != nil {
+		log.Panic(err)
+	}
+
+	source, err := listener.Accept()
+	if err != nil {
+		log.Panic(err)
+	}
+	defer source.Close()
+
+	go func() {
+		target, err := net.Dial("tcp", ":80")
+		if err != nil {
+			log.Print(err)
+			return
+		}
+		defer target.Close()
+
+		wg := &sync.WaitGroup{}
+
+		wg.Add(2)
+
+		copyFunc := func(dst net.Conn, src net.Conn) {
+			defer wg.Done()
+			io.Copy(dst, src)
+		}
+
+		go copyFunc(target, source)
+		go copyFunc(source, target)
+
+		wg.Wait()
+	}()
 }
