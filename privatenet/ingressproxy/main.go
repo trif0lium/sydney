@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"bytes"
+	"encoding/hex"
 	"fmt"
 	"io"
 	"log"
@@ -45,8 +46,8 @@ func main() {
 	}
 
 	wgConf := bytes.NewBuffer(nil)
-	fmt.Fprintf(wgConf, "private_key=%s\n", string(localPrivateKey))
-	fmt.Fprintf(wgConf, "public_key=%s\n", string(localPublicKey))
+	fmt.Fprintf(wgConf, "private_key=%s\n", hex.EncodeToString(localPrivateKey))
+	fmt.Fprintf(wgConf, "public_key=%s\n", hex.EncodeToString(localPublicKey))
 	fmt.Fprintf(wgConf, "listen_port=58120\n")
 	fmt.Fprintf(wgConf, "allowed_ip=%s\n", "192.168.4.28/32")
 	fmt.Fprintf(wgConf, "persistent_keepalive_interval=25\n")
