@@ -1,6 +1,6 @@
-gcloud compute instances create cloudhv-dev-vm \
+gcloud compute instances create wynyard-0 \
   --enable-nested-virtualization \
   --zone australia-southeast2-a \
-  --machine-type "n2-standard-8" \
+  --machine-type "n1-standard-32" \
   --boot-disk-size "100GB" \
-  --image "projects/ubuntu-os-cloud/global/images/ubuntu-2210-kinetic-amd64-v20230125"
+  --image-family "debian-11"
