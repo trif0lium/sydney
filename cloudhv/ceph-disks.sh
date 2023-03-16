@@ -1,7 +1,15 @@
-gcloud compute instances create ceph-0 \
-  --enable-nested-virtualization \
-  --zone australia-southeast2-a \
-  --machine-type "n1-standard-32" \
-  --boot-disk-size "500GB" \
-  --image-family "debian-11" \
-  --image-project "debian-cloud"
+gcloud compute disks create ceph-0-disk-0 \
+  --size 50 \
+  --type "pd-ssd" \
+  --zone australia-southeast2-a
+gcloud compute disks create ceph-0-disk-1 \
+  --size 50 \
+  --type "pd-ssd"
+  --zone australia-southeast2-a
+gcloud compute disks create ceph-0-disk-2 \
+  --size 50 \
+  --type "pd-ssd"
+  --zone australia-southeast2-a
+gcloud compute instances attach-disk ceph-0 --disk ceph-0-disk-0
+gcloud compute instances attach-disk ceph-0 --disk ceph-0-disk-1
+gcloud compute instances attach-disk ceph-0 --disk ceph-0-disk-2
